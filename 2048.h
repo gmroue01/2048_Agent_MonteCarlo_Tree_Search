@@ -8,3 +8,5 @@ using Grid = std::array<std::array<int, N>, N>;
 using Row = std::array<int, N>;
 
 void display(const Grid &grid);
+
+enum Action { Up,Down,Left,Right,Quit,None};
