@@ -45,7 +45,7 @@ int moveRight(Grid &g, bool &moved)
         int k = 0;
         for (int i = 0; i < n;)
         {
-            if (i + 1 < n && tmp[i] == tmp[i + 1])
+            if (i +1 < n && tmp[i] == tmp[i + 1])
             {
                 out[k++] = 2 * tmp[i];
                 score += 2 * tmp[i];
@@ -67,13 +67,49 @@ int moveRight(Grid &g, bool &moved)
     return score;
 }
 
+int moveLeft(Grid &g, bool &moved){
+    int score = 0;
+    moved = false;
+
+    for(int r = 0 ; r < N ; r ++){
+        int tmp[4] = {0,0,0,0};
+        int n = 0;
+        for(int c = 0; c < N ;  c++){
+            if(g[r][c] != 0) tmp[n++] = g[r][c];
+        }
+
+        int out[4] = {0,0,0,0};
+        int k = 0;
+        for(int i = 0 ;  i < n ;){
+            if(i + 1 < n && tmp[i] == tmp[i+1]){
+                out[k++] = 2*tmp[i];
+                score += 2* tmp[i];
+                i += 2;
+            }else{
+                out[k++] = tmp[i++];
+            }
+
+        }
+
+        for (int c = 0 ; c < N ; c++){
+            if(g[r][c] != out[c]) moved = true;
+            g[r][c] = out[c] ;
+
+        }
+    }
+    return score;
+}
+
+
 int main()
 {
     Grid g{};
     g[0][0] = 2;
+    g[0][1] = 2;
+    g[0][3] = 2;
     bool moved = false;
     display(g);
-    moveRight(g, moved);
+    moveLeft(g, moved);
     display(g);
 
     return 1;
